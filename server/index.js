@@ -4,6 +4,7 @@ import logger from 'morgan'
 import { Server } from 'socket.io'
 import { createServer } from 'node:http'
 
+
 const port = process.env.PORT ?? 3000
 
 const app = express()
@@ -14,8 +15,11 @@ io.on('connection', (socket) => {
     console.log('a user has connected');
 
     socket.on('disconnect', () => {
-        console.log('an user has been disconect');
-        
+        console.log('an user has been disconnect');
+    })
+
+    socket.on('chat message', (msg) => {
+        io.emit('chat message', msg )
     })
 
 })
